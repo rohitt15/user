@@ -27,10 +27,12 @@ public class UserService {
     public ResponseTemplateVO getUserWithDepartment(Long userId) {
         ResponseTemplateVO vo=new ResponseTemplateVO();
         User user=userRepsitory.findByUserId(userId);
-        Department department=restTemplate.getForObject("localhost:9001/departments/" + user.getDepartmentId()
-                ,Department.class);
 
+        System.out.println("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId());
+        Department department = restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId()
+                ,Department.class);
         vo.setUser(user);
+        System.out.println(department);
         vo.setDepartment(department);
 
         return vo;
